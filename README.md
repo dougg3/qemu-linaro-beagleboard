@@ -22,4 +22,3 @@ Assuming you have a file called sdcard.img that is a raw SD card image suitable 
 ## Notes:
 
 - You may need to pad the sdcard.img file with a bunch of zeros at the end to make it longer if you get any kernel warnings about the size of the device being too small. I ran into this issue with a buildroot-generated sdcard.img.
-- You also may need to edit U-Boot's configuration to tell it to not load the environment from NAND (CONFIG_ENV_IS_IN_NAND=n). I found that U-Boot would hang while trying to load from the NAND.
