@@ -542,7 +542,7 @@ static uint64_t omap_gpmc_read(void *opaque, hwaddr addr,
         return s->config;
 
     case 0x054:	/* GPMC_STATUS */
-        return 0x001;
+        return 0xF01;
 
     case 0x060 ... 0x1d4:
         cs = (addr - 0x060) / 0x30;
