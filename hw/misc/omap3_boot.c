@@ -169,7 +169,10 @@ static const uint8_t omap3_boot_rom[] = { /* 0x40014000-0x4001bfff */
     0x10, 0x0f, 0x0c, 0xee, /* mcr p15, 0, r0, c12, c0, 0 */
     0x60, 0x00, 0x80, 0xe2, /* add r0, r0, #0x60  @ r0 -> monitor vba */
     0x30, 0x0f, 0x0c, 0xee, /* mcr p15, 0, r0, c12, c0, 1 */
-    0x1c, 0x00, 0x40, 0xe2, /* sub r0, r0, #1c    @ r0 -> booting parameter struct */
+    0x01, 0x01, 0xa0, 0xe3, /* mov r0, #0x40000000 */
+    0x02, 0x06, 0x80, 0xe2, /* add r0, r0, #0x200000 */
+    0xee, 0x0c, 0x80, 0xe2, /* add r0, r0, #0xee00 */
+    0x28, 0x00, 0x80, 0xe2, /* add r0, r0, #0x28 @ r0 -> booting parameter struct */
     0x01, 0xf0, 0xa0, 0xe1, /* mov pc, r1 */
 };
 
@@ -499,7 +502,7 @@ static int omap3_boot_finish(struct omap3_boot_s *s)
 
     if (result) {
         /* fill in the booting parameter structure */
-        cpu_physical_memory_write_rom(&address_space_memory, 0x40014044, x, 12);
+        cpu_physical_memory_write(OMAP3_SRAM_BASE + 0xEE28, x, 12);
     }
     free(s);
     return result;
