@@ -714,6 +714,12 @@ static void twl4030_4a_write(TWL4030NodeState *s, uint8_t addr, uint8_t value)
                 /* read-only registers */
             }
             break;
+        case 0x85:
+        case 0x91:
+        case 0x9b:
+        case 0x9c:
+            /* dummy registers, stop kernel from crashing QEMU */
+            break;
         case 0x97: /* BCICTL1 */
             if (!s->twl4030->twl5031) {
                 s->reg_data[addr] = value;
